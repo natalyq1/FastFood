@@ -1,6 +1,6 @@
 node -v
-npx create-react-app form-ui
-cd form-ui
+npx create-react-app fast-food
+cd fast-food
   npm start
 
 Material UI--https://mui.com/
