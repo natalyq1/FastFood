@@ -1,41 +1,69 @@
-import React from "react";
+import React, { useState } from "react";
 import { TextField, Button, Box } from "@mui/material";
+import { ValidarEmail, ValidarPassword } from "./validaciones";
 
-class DatosUsuario extends React.Component {
-  render() {
-    return (
-      <Box
-        component="form"
-        autoComplete="off"
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection: "column",
-        }}
-      >
-        <TextField
-          label="Correo electrónico"
-          variant="outlined"
-          fullWidth
-          margin="dense"
-          type="email"
-          error={false}
-          helperText={false && "Ingresa un correo electrónico válido"}
-        />
-        <TextField
-          label="Contraseña"
-          variant="outlined"
-          fullWidth
-          margin="dense"
-          type="password"
-        />
-        <Button variant="contained" type="submit">
-          Siguiente
-        </Button>
-      </Box>
-    );
-  }
+const DatosUsuario = () => {
+
+  const [email, setEmail] = useState({ value: '', valid: null})
+  const [password, setPassword] = useState({ value: '', valid: null})
+
+  return (
+    <Box
+      component="form"
+      autoComplete="off"
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+      }}
+      onSubmit={(e) => {
+        e.preventDefault()
+        if (email.valid && password.valid) {
+          console.log('siguiente form', email, password);
+        }else{
+          console.log('no hacer nada');
+        }
+      }}
+    >
+      <TextField
+        label="Correo electrónico"
+        variant="outlined"
+        fullWidth
+        margin="dense"
+        type="email"
+        error={email.valid === false}
+        helperText={email.valid === false && "Ingresa un correo electrónico válido"}
+        value={email.value}
+        onChange={(input) => {
+          const email = input.target.value
+          const valido = ValidarEmail(email)
+          setEmail({ value: email, valid: valido })
+        }
+        }
+      />
+      <TextField
+        label="Contraseña"
+        variant="outlined"
+        fullWidth
+        margin="dense"
+        type="password"
+        error={password.valid === false}
+        helperText={password.valid === false && "Ingresa una contraseña con al menos 8 caracteres y máximo 20"}
+        value={password.value}
+        onChange={(input) => {
+          const password = input.target.value
+          
+          setPassword({ value: password, valid: ValidarPassword(password) })
+        }
+        }
+      />
+      <Button variant="contained" type="submit">
+        Siguiente
+      </Button>
+    </Box>
+  );
 }
+
 
 export default DatosUsuario;

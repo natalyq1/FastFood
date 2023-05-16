@@ -11,7 +11,7 @@ export const MainSpace = styled.div`
 export const ImageSpace = styled.div`
   width: 55vw;
   height: 100vh;
-  background-image: url("/motoboy.jpeg");
+  background-image: url("/img/motoboy.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
