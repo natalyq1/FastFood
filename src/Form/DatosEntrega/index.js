@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { TextField, Button, Box } from "@mui/material";
+import { validarInput } from "./validaciones";
 
 const DatosEntrega = ({ updateStep }) => {
+
+  const [address, setAddress] = useState({ value: '', valid: null })
+  const [city, setCity] = useState({ value: '', valid: null })
+  const [providence, setProvidence] = useState({ value: '', valid: null })
+
+
   return (
     <Box
       component="form"
@@ -23,6 +30,15 @@ const DatosEntrega = ({ updateStep }) => {
         fullWidth
         margin="dense"
         type="text"
+        error={address.valid === false}
+        helperText={address.valid === false && "Ingresa al menos 4 caracteres."}
+        value={address.value}
+        onChange={(input) => {
+          const value = input.target.value
+          const valid = validarInput(value)
+          setAddress({ value, valid })
+        }
+        }
       />
       <TextField
         label="Ciudad"
@@ -30,6 +46,15 @@ const DatosEntrega = ({ updateStep }) => {
         fullWidth
         margin="dense"
         type="text"
+        error={city.valid === false}
+        helperText={city.valid === false && "Ingresa al menos 4 caracteres."}
+        value={city.value}
+        onChange={(input) => {
+          const value = input.target.value
+          const valid = validarInput(value)
+          setCity({ value, valid })
+        }
+        }
       />
       <TextField
         label="Estado/Provincia"
@@ -37,6 +62,15 @@ const DatosEntrega = ({ updateStep }) => {
         fullWidth
         margin="dense"
         type="text"
+        error={providence.valid === false}
+        helperText={providence.valid === false && "Ingresa al menos 4 caracteres."}
+        value={providence.value}
+        onChange={(input) => {
+          const value = input.target.value
+          const valid = validarInput(value)
+          setProvidence({ value, valid })
+        }
+        }
       />
       <Button variant="contained" type="submit">
         Crear cuenta
