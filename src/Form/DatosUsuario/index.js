@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { TextField, Button, Box } from "@mui/material";
 import { ValidarEmail, ValidarPassword } from "./validaciones";
 
-const DatosUsuario = () => {
+const DatosUsuario = ({ updateStep }) => {
 
-  const [email, setEmail] = useState({ value: '', valid: null})
-  const [password, setPassword] = useState({ value: '', valid: null})
+  const [email, setEmail] = useState({ value: '', valid: null })
+  const [password, setPassword] = useState({ value: '', valid: null })
 
   return (
     <Box
@@ -21,7 +21,8 @@ const DatosUsuario = () => {
         e.preventDefault()
         if (email.valid && password.valid) {
           console.log('siguiente form', email, password);
-        }else{
+          updateStep(1)
+        } else {
           console.log('no hacer nada');
         }
       }}
@@ -53,7 +54,7 @@ const DatosUsuario = () => {
         value={password.value}
         onChange={(input) => {
           const password = input.target.value
-          
+
           setPassword({ value: password, valid: ValidarPassword(password) })
         }
         }
